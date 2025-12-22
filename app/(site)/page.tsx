@@ -1,0 +1,63 @@
+import { CiCreditCard1, CiDeliveryTruck, CiInstagram } from "react-icons/ci";
+import { RiSecurePaymentLine } from "react-icons/ri";
+
+import SliderDesktop from "@/components/ui/SliderDesktop";
+import SliderMobile from "@/components/ui/SliderMobile";
+
+import Link from "next/link";
+
+export default function Home() {
+  return (
+    <div>
+      <div className="sm:block hidden">
+        <SliderDesktop />
+      </div>
+
+      <div className="sm:hidden block">
+        <SliderMobile />
+      </div>
+
+      <div className="grid sm:grid-cols-3 grid-cols-1 gap-3 mt-12">
+        <div className="flex flex-col items-center">
+          <CiDeliveryTruck size={100} />
+          <p>Envios a todo el país</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <CiCreditCard1 size={100} />
+          <p>Hasta 3 cuotas sin interes</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <RiSecurePaymentLine size={100} />
+          <p>Compra de manera segura</p>
+        </div>
+      </div>
+
+      <h1 className="text-center font-bold text-4xl mt-12">
+        Productos destacados
+      </h1>
+
+      {/* TODO: crear el componente ProductsContainer para renderizar los productos */}
+      <main>List of products!</main>
+
+      <div className="flex flex-col items-center mt-12">
+        <div className="flex items-center gap-3">
+          <CiInstagram size={50} />
+          <p className="text-2xl">Mustaque.arg</p>
+        </div>
+        <Link
+          href={"/"}
+          className="link bg-black px-12 py-2 rounded-full text-white mt-2"
+        >
+          Seguinos
+        </Link>
+      </div>
+
+      <div className="text-center mt-12">
+        <p className="text-3xl">Mustaqe Indumentaria S.A.</p>
+        <p>
+          Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  );
+}
