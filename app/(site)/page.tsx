@@ -1,10 +1,12 @@
 import { CiCreditCard1, CiDeliveryTruck, CiInstagram } from "react-icons/ci";
 import { RiSecurePaymentLine } from "react-icons/ri";
 
+import Link from "next/link";
+
 import SliderDesktop from "@/components/ui/SliderDesktop";
 import SliderMobile from "@/components/ui/SliderMobile";
+import ProductsContainer from "@/components/products/ProductsContainer";
 
-import Link from "next/link";
 
 export default function Home() {
   return (
@@ -36,8 +38,9 @@ export default function Home() {
         Productos destacados
       </h1>
 
-      {/* TODO: crear el componente ProductsContainer para renderizar los productos */}
-      <main>List of products!</main>
+      <main className="mt-5">
+        <ProductsContainer />
+      </main>
 
       <div className="flex flex-col items-center mt-12">
         <div className="flex items-center gap-3">

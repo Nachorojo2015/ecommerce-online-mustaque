@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const kanit = Kanit({
   variable: "--font-geist-sans",
@@ -9,7 +10,7 @@ const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
-  title: "Mustaque",
+  title: "Mustaqe",
   description: "Ecommerce online created with Next js",
 };
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body
         className={`${kanit.className}`}
       >
+        <Toaster />
         {children}
       </body>
     </html>

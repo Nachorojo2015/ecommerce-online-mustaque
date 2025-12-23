@@ -1,6 +1,20 @@
+"use client";
+
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { IoClose } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 const SidebarMenu = () => {
+  const router = useRouter();
+
+  const { data: session } = authClient.useSession();
+
+  const closeSession = async () => {
+    await authClient.signOut();
+    router.refresh();
+  };
+
   return (
     <div className="drawer">
       <input id="my-drawer-1" type="checkbox" className="drawer-toggle" />
@@ -18,12 +32,88 @@ const SidebarMenu = () => {
         ></label>
         <ul className="menu bg-base-200 min-h-full w-80 p-4">
           {/* Sidebar content here */}
+          <label htmlFor="my-drawer-1" className="w-fit">
+            <IoClose size={30} className="cursor-pointer" />
+          </label>
+
           <li>
-            <a>Sidebar Item 1</a>
+            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+              Inicio
+            </label>
           </li>
           <li>
-            <a>Sidebar Item 2</a>
+            <details>
+              <summary>Productos</summary>
+              <ul className="p-2 w-52 z-1">
+                <li>
+                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                    Ver todos los productos
+                  </label>
+                </li>
+                <li>
+                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                    Hoodies/Buzos
+                  </label>
+                </li>
+                <li>
+                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                    Remerones
+                  </label>
+                </li>
+                <li>
+                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                    Pantalones
+                  </label>
+                </li>
+                <li>
+                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                    Shorts
+                  </label>
+                </li>
+                <li>
+                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                    Conjuntos
+                  </label>
+                </li>
+                <li>
+                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                    Accesorios
+                  </label>
+                </li>
+              </ul>
+            </details>
           </li>
+          <li>
+            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+              Stores
+            </label>
+          </li>
+          <li>
+            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+              Cómo comprar
+            </label>
+          </li>
+          <li>
+            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+              Preguntas frecuentes
+            </label>
+          </li>
+          <li>
+            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+              Política de cambios
+            </label>
+          </li>
+          {session && (
+            <li>
+              <label
+                htmlFor="my-drawer-1"
+                className="text-red-500"
+                onClick={closeSession}
+              >
+                Cerrar sesión
+              </label>
+            </li>
+          )}
         </ul>
       </div>
     </div>
