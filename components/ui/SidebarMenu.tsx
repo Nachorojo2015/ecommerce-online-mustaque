@@ -84,22 +84,22 @@ const SidebarMenu = () => {
             </details>
           </li>
           <li>
-            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+            <label htmlFor="my-drawer-1" onClick={() => router.push("/stores")}>
               Stores
             </label>
           </li>
           <li>
-            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+            <label htmlFor="my-drawer-1" onClick={() => router.push("/como-comprar")}>
               Cómo comprar
             </label>
           </li>
           <li>
-            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+            <label htmlFor="my-drawer-1" onClick={() => router.push("/preguntas-frecuentes")}>
               Preguntas frecuentes
             </label>
           </li>
           <li>
-            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+            <label htmlFor="my-drawer-1" onClick={() => router.push("/politica-de-cambios")}>
               Política de cambios
             </label>
           </li>

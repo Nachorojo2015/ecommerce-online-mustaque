@@ -48,7 +48,8 @@ export default function Home() {
           <p className="text-2xl">Mustaque.arg</p>
         </div>
         <Link
-          href={"/"}
+          href={"https://www.instagram.com/mustaqe.arg/?hl=es"}
+          target="__BLANCK"
           className="link bg-black px-12 py-2 rounded-full text-white mt-2"
         >
           Seguinos
