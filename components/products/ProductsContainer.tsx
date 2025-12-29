@@ -1,23 +1,23 @@
 import ProductCard from "./ProductCard";
 
-const products = [
-  {
-    id: 1,
-    urlImage: "/image.png",
-    title: "Remeron fear god",
-    price: 28000,
-  },
-];
+interface Products {
+  id: string;
+  title: string;
+  price: number;
+  slug: string;
+  images: string[];
+}
 
-const ProductsContainer = () => {
+const ProductsContainer = ({ products }: { products: Products[] }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
       {products.map((product) => (
         <ProductCard
           key={product.id}
-          urlImage={product.urlImage}
           title={product.title}
           price={product.price}
+          slug={product.slug}
+          images={product.images}
         />
       ))}
     </div>

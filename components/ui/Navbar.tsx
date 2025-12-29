@@ -11,7 +11,7 @@ const Navbar = async () => {
   });
 
   return (
-    <div className="navbar shadow-sm bg-slate-200 rounded-lg flex items-center justify-between z-50 p-2 top-0">
+    <div className="navbar fixed left-0 top-3 mx-3 w-[calc(100%-24px)] shadow-sm bg-base-100 rounded-lg flex items-center justify-between z-50 p-2">
       <div>
         <SidebarMenu />
       </div>

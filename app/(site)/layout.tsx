@@ -9,7 +9,7 @@ export default function SiteLayout({
   return (
     <div className="p-3">
       <Navbar />
-      {children}
+      <div className="mt-20">{children}</div>
       <Footer />
     </div>
   );

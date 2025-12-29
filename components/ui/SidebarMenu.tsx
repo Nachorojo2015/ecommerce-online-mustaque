@@ -1,7 +1,8 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import clsx from "clsx";
+import { usePathname, useRouter } from "next/navigation";
 import { IoClose } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 
@@ -14,6 +15,8 @@ const SidebarMenu = () => {
     await authClient.signOut();
     router.refresh();
   };
+
+  const pathname = usePathname();
 
   return (
     <div className="drawer">
@@ -37,7 +40,13 @@ const SidebarMenu = () => {
           </label>
 
           <li>
-            <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+            <label
+              htmlFor="my-drawer-1"
+              className={clsx({
+                "font-bold": pathname === "/",
+              })}
+              onClick={() => router.push("/")}
+            >
               Inicio
             </label>
           </li>
@@ -46,60 +55,133 @@ const SidebarMenu = () => {
               <summary>Productos</summary>
               <ul className="p-2 w-52 z-1">
                 <li>
-                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
-                    Ver todos los productos
+                  <label
+                    htmlFor="my-drawer-1"
+                    onClick={() => router.push("/buzos")}
+                    className={clsx({
+                      "font-bold": pathname === "/buzos",
+                    })}
+                  >
+                    Buzos
                   </label>
                 </li>
                 <li>
-                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
-                    Hoodies/Buzos
-                  </label>
-                </li>
-                <li>
-                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                  <label
+                    htmlFor="my-drawer-1"
+                    onClick={() => router.push("/remerones")}
+                    className={clsx({
+                      "font-bold": pathname === "/remerones",
+                    })}
+                  >
                     Remerones
                   </label>
                 </li>
                 <li>
-                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                  <label
+                    htmlFor="my-drawer-1"
+                    onClick={() => router.push("/pantalones")}
+                    className={clsx({
+                      "font-bold": pathname === "/pantalones",
+                    })}
+                  >
                     Pantalones
                   </label>
                 </li>
                 <li>
-                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                  <label
+                    htmlFor="my-drawer-1"
+                    onClick={() => router.push("/shorts")}
+                    className={clsx({
+                      "font-bold": pathname === "/shorts",
+                    })}
+                  >
                     Shorts
                   </label>
                 </li>
                 <li>
-                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
+                  <label
+                    htmlFor="my-drawer-1"
+                    onClick={() => router.push("/conjuntos")}
+                    className={clsx({
+                      "font-bold": pathname === "/conjuntos",
+                    })}
+                  >
                     Conjuntos
                   </label>
                 </li>
                 <li>
-                  <label htmlFor="my-drawer-1" onClick={() => router.push("/")}>
-                    Accesorios
-                  </label>
+                  <details>
+                    <summary>Accesorios</summary>
+                    <ul className="p-2">
+                      <li>
+                        <label
+                          htmlFor="my-drawer-1"
+                          onClick={() => router.push("/gorros")}
+                          className={clsx({
+                            "font-bold": pathname === "/gorros",
+                          })}
+                        >
+                          Gorros
+                        </label>
+                      </li>
+                      <li>
+                        <label
+                          htmlFor="my-drawer-1"
+                          onClick={() => router.push("/medias")}
+                          className={clsx({
+                            "font-bold": pathname === "/medias",
+                          })}
+                        >
+                          Medias
+                        </label>
+                      </li>
+                    </ul>
+                  </details>
                 </li>
               </ul>
             </details>
           </li>
           <li>
-            <label htmlFor="my-drawer-1" onClick={() => router.push("/stores")}>
+            <label
+              htmlFor="my-drawer-1"
+              className={clsx({
+                "font-bold": pathname === "/stores",
+              })}
+              onClick={() => router.push("/stores")}
+            >
               Stores
             </label>
           </li>
           <li>
-            <label htmlFor="my-drawer-1" onClick={() => router.push("/como-comprar")}>
+            <label
+              htmlFor="my-drawer-1"
+              onClick={() => router.push("/como-comprar")}
+              className={clsx({
+                "font-bold": pathname === "/como-comprar",
+              })}
+            >
               Cómo comprar
             </label>
           </li>
           <li>
-            <label htmlFor="my-drawer-1" onClick={() => router.push("/preguntas-frecuentes")}>
+            <label
+              htmlFor="my-drawer-1"
+              onClick={() => router.push("/preguntas-frecuentes")}
+              className={clsx({
+                "font-bold": pathname === "/preguntas-frecuentes",
+              })}
+            >
               Preguntas frecuentes
             </label>
           </li>
           <li>
-            <label htmlFor="my-drawer-1" onClick={() => router.push("/politica-de-cambios")}>
+            <label
+              htmlFor="my-drawer-1"
+              onClick={() => router.push("/politica-de-cambios")}
+              className={clsx({
+                "font-bold": pathname === "/politica-de-cambios",
+              })}
+            >
               Política de cambios
             </label>
           </li>

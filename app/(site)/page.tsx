@@ -7,8 +7,19 @@ import SliderDesktop from "@/components/ui/SliderDesktop";
 import SliderMobile from "@/components/ui/SliderMobile";
 import ProductsContainer from "@/components/products/ProductsContainer";
 
+import { getProducts } from "@/actions/products/get-products";
 
-export default function Home() {
+interface Products {
+  id: string;
+  title: string;
+  price: number;
+  slug: string;
+  images: string[];
+}
+
+export default async function Home() {
+  const { ok, products, message } = await getProducts();
+
   return (
     <div>
       <div className="sm:block hidden">
@@ -39,7 +50,11 @@ export default function Home() {
       </h1>
 
       <main className="mt-5">
-        <ProductsContainer />
+        {!ok && <p className="text-center">{message}</p>}
+
+        {products?.length === 0 && <p className="text-center">No hay productos disponibles</p>}
+
+        <ProductsContainer products={products as Products[]} />
       </main>
 
       <div className="flex flex-col items-center mt-12">
@@ -58,9 +73,7 @@ export default function Home() {
 
       <div className="text-center mt-12">
         <p className="text-3xl">Mustaqe Indumentaria S.A.</p>
-        <p>
-          Todos los derechos reservados.
-        </p>
+        <p>Todos los derechos reservados.</p>
       </div>
     </div>
   );
