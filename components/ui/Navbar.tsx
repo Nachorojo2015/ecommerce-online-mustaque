@@ -1,9 +1,10 @@
-import { CiShoppingCart, CiUser } from "react-icons/ci";
+import { CiUser } from "react-icons/ci";
 import SidebarMenu from "./SidebarMenu";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
+import CartMenu from "../cart/CartMenu";
 
 const Navbar = async () => {
   const session = await auth.api.getSession({
@@ -16,7 +17,7 @@ const Navbar = async () => {
         <SidebarMenu />
       </div>
       <div className="flex items-center gap-3">
-        <CiShoppingCart className="cursor-pointer" size={30} />
+        <CartMenu />
 
         {session ? (
           <Image

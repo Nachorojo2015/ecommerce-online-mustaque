@@ -1,4 +1,5 @@
 import { getProduct } from "@/actions/products/get-product";
+import AddProduct from "@/components/cart/AddProduct";
 import Image from "next/image";
 import { SiMercadopago } from "react-icons/si";
 
@@ -39,32 +40,12 @@ export default async function ProductPage({ params }: Params) {
 
           <p className="text-2xl font-semibold">${product.price}</p>
 
-          <select defaultValue="Selecciona un talle" className="select">
-            <option disabled={true}>Selecciona un talle</option>
-            {product.sizes.map(
-              (size: { size: string; stock: number }, index: number) => (
-                <option key={index} disabled={size.stock <= 0}>
-                  {size.size}
-                </option>
-              )
-            )}
-          </select>
-
-          <div>
-            <p>Cantidad</p>
-            <div className="flex items-center gap-2">
-              <button className="btn">+</button>
-              <span>1</span>
-              <button className="btn">-</button>
-            </div>
-          </div>
-
           <div className="flex items-center gap-2">
             <SiMercadopago size={24} />
             <p>Paga seguro con mercado pago</p>
           </div>
 
-          <button className="btn btn-neutral sm:w-fit w-full">Agregar al carrito</button>
+          <AddProduct id={product.id} title={product.title} image={product.images[0]} price={product.price} sizes={product.sizes} />
         </div>
       </main>
     </div>
