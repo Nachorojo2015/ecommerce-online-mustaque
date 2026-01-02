@@ -4,10 +4,13 @@ import { useCartStore } from "@/store/cart-store";
 import { CiShoppingCart } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
 import CartProductsContainer from "./CartProductsContainer";
+import { useRouter } from "next/navigation";
 
 const CartMenu = () => {
   const { items } = useCartStore();
   const getTotal = useCartStore((state) => state.getTotal);
+
+  const router = useRouter();
 
   return (
     <div className="drawer drawer-end">
@@ -44,17 +47,39 @@ const CartMenu = () => {
           {items.length > 0 ? (
             <CartProductsContainer />
           ) : (
-            <p className="text-center mt-10">El carrito de compras está vacío</p>
+            <p className="text-center mt-10">
+              El carrito de compras está vacío
+            </p>
           )}
 
           <div className="divider"></div>
 
-          <div className="flex items-center justify-between mt-auto text-2xl font-bold">
-            <p>Total:</p>
-            <p>${getTotal()}</p>
+          <div className="mt-auto flex flex-col gap-2">
+            {items.map((item, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <p>Producto</p>
+                <p>${item.price}</p>
+              </div>
+            ))}
+
+            {items.length > 0 && (
+              <div className="flex items-center justify-between">
+                <p>Envío</p>
+                <p>El costo se calculará más adelante</p>
+              </div>
+            )}
+
+            {items.length > 0 && (
+              <div className="flex items-center justify-between text-xl font-bold">
+                <p>Total:</p>
+                <p>${getTotal()}</p>
+              </div>
+            )}
           </div>
 
-          <button className="mt-auto btn btn-neutral">Checkout</button>
+          <label htmlFor="my-drawer-5" className="btn btn-neutral" onClick={() => router.push('/checkout')}>
+            Checkout
+          </label>
         </ul>
       </div>
     </div>

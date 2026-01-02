@@ -1,6 +1,19 @@
 "use server";
 
 import { pool } from "@/lib/db";
+import { ProductItem } from "@/types";
+
+interface GetProductsSuccess {
+  ok: true;
+  products: ProductItem[];
+}
+
+interface GetProductsError {
+  ok: false;
+  message: string;
+}
+
+type GetProductsResponse = GetProductsSuccess | GetProductsError;
 
 interface Parameters {
   category:
@@ -13,22 +26,22 @@ interface Parameters {
     | "medias";
 }
 
-export const getProductsByCategory = async ({ category }: Parameters) => {
+export const getProductsByCategory = async ({ category }: Parameters): Promise<GetProductsResponse> => {
   try {
     const response = await pool.query(
-    `
+      `
     SELECT
-    p.id,
-    p.title,
-    p.price,
-    p.slug,
-    json_agg(pi.url_image) AS images
+      p.id,
+      p.title,
+      p.price,
+      p.slug,
+      json_agg(pi.url_image) AS images
     FROM products p
     JOIN product_images pi ON pi.product_id = p.id
     GROUP BY p.id, p.title, p.price
     HAVING p.category = $1;
     `,
-    [category]
+      [category]
     );
 
     return {

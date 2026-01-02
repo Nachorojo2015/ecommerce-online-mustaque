@@ -12,15 +12,17 @@ interface Params {
 export default async function ProductPage({ params }: Params) {
   const { slug } = await params;
 
-  const { ok, message, product } = await getProduct({ slug });
+  const res = await getProduct({ slug });
 
-  if (!ok) {
-    return <h1>{message}</h1>;
+  if (!res.ok) {
+    return <h1>{res.message}</h1>;
   }
 
-  if (!product) {
+  if (!res.product) {
     return <h1>Producto no encontrado</h1>;
   }
+
+  const { product } = res;
 
   return (
     <div>
@@ -45,7 +47,7 @@ export default async function ProductPage({ params }: Params) {
             <p>Paga seguro con mercado pago</p>
           </div>
 
-          <AddProduct id={product.id} title={product.title} image={product.images[0]} price={product.price} sizes={product.sizes} />
+          <AddProduct product={product} />
         </div>
       </main>
     </div>

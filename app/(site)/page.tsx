@@ -9,16 +9,8 @@ import ProductsContainer from "@/components/products/ProductsContainer";
 
 import { getProducts } from "@/actions/products/get-products";
 
-interface Products {
-  id: string;
-  title: string;
-  price: number;
-  slug: string;
-  images: string[];
-}
-
 export default async function Home() {
-  const { ok, products, message } = await getProducts();
+  const res = await getProducts();
 
   return (
     <div>
@@ -50,11 +42,11 @@ export default async function Home() {
       </h1>
 
       <main className="mt-5">
-        {!ok && <p className="text-center">{message}</p>}
+        {!res.ok && <p className="text-center">{res.message}</p>}
 
-        {products?.length === 0 && <p className="text-center">No hay productos disponibles</p>}
+        {res.ok && res.products.length === 0 && <p className="text-center">No hay productos disponibles</p>}
 
-        <ProductsContainer products={products as Products[]} />
+        {res.ok && res.products && <ProductsContainer products={res.products} />}
       </main>
 
       <div className="flex flex-col items-center mt-12">

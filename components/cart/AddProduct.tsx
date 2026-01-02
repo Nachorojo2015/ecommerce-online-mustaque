@@ -1,21 +1,10 @@
 "use client";
 
 import { useCartStore } from "@/store/cart-store";
+import { Product } from "@/types";
 import { useState } from "react";
 
-interface Props {
-  id: string;
-  title: string;
-  image: string;
-  price: number;
-
-  sizes: {
-    size: string;
-    stock: number;
-  }[];
-}
-
-const AddProduct = ({ id, title, image, price, sizes }: Props) => {
+const AddProduct = ({ product }: { product: Product }) => {
   const addItem = useCartStore((state) => state.addItem);
 
   const [size, setSize] = useState("");
@@ -30,12 +19,12 @@ const AddProduct = ({ id, title, image, price, sizes }: Props) => {
     }
 
     addItem({
-      id,
-      image,
-      title,
-      price,
+      id: product.id,
+      image: product.images[0],
+      title: product.title,
+      price: product.price,
       size,
-      quantity
+      quantity,
     });
   };
 
@@ -50,19 +39,15 @@ const AddProduct = ({ id, title, image, price, sizes }: Props) => {
 
   return (
     <>
-      {
-        sizeErrorMessage && (
-          <p className="text-red-500">{sizeErrorMessage}</p>
-        )
-      }
+      {sizeErrorMessage && <p className="text-red-500">{sizeErrorMessage}</p>}
       <select defaultValue="Selecciona un talle" className="select">
         <option disabled={true}>Selecciona un talle</option>
-        {sizes.map((size, index) => (
+        {product.sizes.map((size, index) => (
           <option
             key={index}
             disabled={size.stock <= 0}
             onClick={() => {
-              setSize(size.size)
+              setSize(size.size);
               setSizeErrorMessage(null);
             }}
           >
