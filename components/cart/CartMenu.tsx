@@ -55,16 +55,9 @@ const CartMenu = () => {
           <div className="divider"></div>
 
           <div className="mt-auto flex flex-col gap-2">
-            {items.map((item, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <p>Producto</p>
-                <p>${item.price}</p>
-              </div>
-            ))}
-
             {items.length > 0 && (
               <div className="flex items-center justify-between">
-                <p>Envío</p>
+                <p className="font-semibold">Envío</p>
                 <p>El costo se calculará más adelante</p>
               </div>
             )}
@@ -77,9 +70,15 @@ const CartMenu = () => {
             )}
           </div>
 
-          <label htmlFor="my-drawer-5" className="btn btn-neutral" onClick={() => router.push('/checkout')}>
-            Checkout
-          </label>
+          {items.length > 0 && (
+            <label
+              htmlFor="my-drawer-5"
+              className="btn btn-neutral mt-4"
+              onClick={() => router.push("/checkout")}
+            >
+              Checkout
+            </label>
+          )}
         </ul>
       </div>
     </div>

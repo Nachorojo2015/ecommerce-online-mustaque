@@ -10,6 +10,7 @@ const CartProductsContainer = () => {
         <CartProductCard
           key={index}
           id={item.id}
+          slug={item.slug}
           title={item.title}
           image={item.image}
           price={item.price}

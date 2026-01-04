@@ -27,6 +27,7 @@ export const getProduct = async ({ slug }: Parameters): Promise<GetProductRespon
         p.id,
         p.title,
         p.price,
+        p.slug,
 
         -- imágenes del producto
         (

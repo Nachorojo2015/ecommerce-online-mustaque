@@ -27,5 +27,18 @@ CREATE TABLE product_sizes (
   PRIMARY KEY (product_id, size)
 );
 
+CREATE TABLE order_address (
+  id TEXT NOT NULL PRIMARY KEY,
+  fullname TEXT NOT NULL,
+  address TEXT NOT NULL,
+  address2 TEXT,
+  postal_code TEXT NOT NULL,
+  city TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  country_id TEXT NOT NULL
+);
+
+
+
 
 

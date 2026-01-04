@@ -2,8 +2,9 @@ export interface Product {
   id: string;
   title: string;
   price: number;
+  slug: string;
   images: string[];
-  sizes: Size[];
+  sizes?: Size[];
 }
 
 export interface ProductItem {

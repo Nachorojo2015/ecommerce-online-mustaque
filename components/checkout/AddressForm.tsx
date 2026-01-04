@@ -1,11 +1,14 @@
 "use client";
 
+import { useCheckout } from "@/store/checkout-store";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface FormData {
   fullname: string;
   address: string;
-  address2: string;
+  address2?: string;
   postalCode: string;
   city: string;
   country: string;
@@ -13,17 +16,42 @@ interface FormData {
 }
 
 const AddressForm = () => {
+  const { register, handleSubmit, reset } = useForm<FormData>();
 
-  const { register, handleSubmit } = useForm<FormData>();
+  const stored = useCheckout((state) => state);
+  const setCheckoutData = useCheckout((state) => state.setCheckoutData);
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-  }
+    setCheckoutData({
+      fullname: data.fullname,
+      address: data.address,
+      address2: data.address2,
+      postalCode: data.postalCode,
+      city: data.city,
+      country: data.country,
+      phone: data.phone,
+    });
 
+    redirect('/checkout');
+  };
 
+  useEffect(() => {
+    reset({
+      fullname: stored.fullname,
+      address: stored.address,
+      address2: stored.address2,
+      postalCode: stored.postalCode,
+      city: stored.city,
+      country: stored.country,
+      phone: stored.phone,
+    });
+  }, [stored, reset]);
 
   return (
-    <form className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center mt-5" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center mt-5"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="flex flex-col">
         <label className="label">Nombre completo</label>
         <input
@@ -50,7 +78,7 @@ const AddressForm = () => {
           type="text"
           placeholder="Direccion de envio 2 (opcional)"
           className="input w-full outline-none"
-          {...register("address2", { required: true })}
+          {...register("address2")}
         />
       </div>
 
@@ -70,7 +98,7 @@ const AddressForm = () => {
           type="text"
           placeholder="Ciudad"
           className="input w-full outline-none"
-          {...register("address2", { required: true })}
+          {...register("city", { required: true })}
         />
       </div>
 

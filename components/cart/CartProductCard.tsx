@@ -1,9 +1,11 @@
 import { useCartStore } from "@/store/cart-store";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { CiTrash } from "react-icons/ci";
 
 interface Props {
   id: string;
+  slug: string;
   title: string;
   image: string;
   quantity: number;
@@ -11,22 +13,24 @@ interface Props {
   price: number;
 }
 
-const CartProductCard = ({ id, title, image, quantity, size, price }: Props) => {
+const CartProductCard = ({ id, slug, title, image, quantity, size, price }: Props) => {
     
   const removeItem = useCartStore((state) => state.removeItem);
   const increaseQuantity = useCartStore((state) => state.increaseQuantity);
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
 
+  const router = useRouter();
+
   return (
     <div className="flex items-center gap-2">
-      <div className="relative min-h-24 min-w-24">
+      <label htmlFor="my-drawer-5" onClick={() => router.push(`/product/${slug}`)} className="relative min-h-24 min-w-24 cursor-pointer">
         <Image
           src={image}
           alt="product-image"
           fill
           className="object-cover rounded-sm"
         />
-      </div>
+      </label>
 
       <div className="flex flex-col gap-1">
         <p className="font-bold">{title}</p>

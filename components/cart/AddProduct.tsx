@@ -23,6 +23,7 @@ const AddProduct = ({ product }: { product: Product }) => {
       image: product.images[0],
       title: product.title,
       price: product.price,
+      slug: product.slug,
       size,
       quantity,
     });
@@ -40,21 +41,25 @@ const AddProduct = ({ product }: { product: Product }) => {
   return (
     <>
       {sizeErrorMessage && <p className="text-red-500">{sizeErrorMessage}</p>}
-      <select defaultValue="Selecciona un talle" className="select">
-        <option disabled={true}>Selecciona un talle</option>
-        {product.sizes.map((size, index) => (
-          <option
-            key={index}
-            disabled={size.stock <= 0}
-            onClick={() => {
-              setSize(size.size);
-              setSizeErrorMessage(null);
-            }}
-          >
-            {size.size}
-          </option>
-        ))}
-      </select>
+
+      {product.sizes && (
+        <select defaultValue="Selecciona un talle" className="select">
+          <option disabled={true}>Selecciona un talle</option>
+          {product.sizes &&
+            product.sizes.map((size, index) => (
+              <option
+                key={index}
+                disabled={size.stock <= 0}
+                onClick={() => {
+                  setSize(size.size);
+                  setSizeErrorMessage(null);
+                }}
+              >
+                {size.size}
+              </option>
+            ))}
+        </select>
+      )}
 
       <div>
         <p>Cantidad</p>
