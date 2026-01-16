@@ -13,7 +13,7 @@ const AddProduct = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
 
   const addToCart = () => {
-    if (!size) {
+    if (!size && product.category !== 'medias' && product.category !== "gorros") {
       setSizeErrorMessage("Debe seleccionar un talle");
       return;
     }

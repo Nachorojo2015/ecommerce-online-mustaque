@@ -27,17 +27,43 @@ CREATE TABLE product_sizes (
   PRIMARY KEY (product_id, size)
 );
 
+CREATE TABLE orders (
+  id TEXT NOT NULL PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES "user"(id),
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (
+    status IN ('pending', 'paid', 'cancelled')
+  ),
+  subtotal NUMERIC(10, 2) NOT NULL,
+  shipping_cost NUMERIC(10, 2) NOT NULL,
+  total NUMERIC(10, 2) NOT NULL,
+  payment_status TEXT NOT NULL DEFAULT 'pending' CHECK (
+    payment_status IN ('pending', 'paid', 'failed')
+  ),
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE order_address (
   id TEXT NOT NULL PRIMARY KEY,
+  order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
   fullname TEXT NOT NULL,
   address TEXT NOT NULL,
   address2 TEXT,
   postal_code TEXT NOT NULL,
   city TEXT NOT NULL,
   phone TEXT NOT NULL,
-  country_id TEXT NOT NULL
+  country TEXT NOT NULL
 );
 
+CREATE TABLE order_items (
+  id TEXT PRIMARY KEY NOT NULL,
+  order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+  product_id TEXT NOT NULL,
+  size TEXT,
+  quantity INT NOT NULL CHECK (quantity > 0),
+  unit_price NUMERIC(10, 2) NOT NULL,
+  total_price NUMERIC(10, 2) NOT NULL
+);
 
 
 

@@ -5,12 +5,13 @@ import Link from "next/link";
 const ProductCard = ({ product }: { product: ProductItem }) => {
   return (
     <div className="flex flex-col rounded-sm shadow">
-      <div className="relative min-w-72 min-h-72">
+      <div className="relative min-w-72 min-h-96">
         <Image
           src={product.images[0]}
           alt="product-image"
           fill
           className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
 

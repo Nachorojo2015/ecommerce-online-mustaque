@@ -12,23 +12,17 @@ interface Params {
 export default async function ProductPage({ params }: Params) {
   const { slug } = await params;
 
-  const res = await getProduct({ slug });
+  const product = await getProduct({ slug });
 
-  if (!res.ok) {
-    return <h1>{res.message}</h1>;
+  if (!product) {
+    return <p className="text-center font-bold">Producto no encontrado</p>;
   }
-
-  if (!res.product) {
-    return <h1>Producto no encontrado</h1>;
-  }
-
-  const { product } = res;
 
   return (
     <div>
       <main className="grid grid-cols-1 sm:grid-cols-2 place-content-center gap-5 mt-5">
         <div>
-          <div className="relative min-h-80 sm:min-h-125">
+          <div className="relative min-h-80 sm:min-h-125 w-auto">
             <Image
               src={product.images[0]}
               alt="product-image"

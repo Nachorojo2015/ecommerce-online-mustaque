@@ -3,18 +3,6 @@
 import { pool } from "@/lib/db";
 import { ProductItem } from "@/types";
 
-interface GetProductsSuccess {
-  ok: true;
-  products: ProductItem[];
-}
-
-interface GetProductsError {
-  ok: false;
-  message: string;
-}
-
-type GetProductsResponse = GetProductsSuccess | GetProductsError;
-
 interface Parameters {
   category:
     | "buzos"
@@ -26,9 +14,9 @@ interface Parameters {
     | "medias";
 }
 
-export const getProductsByCategory = async ({ category }: Parameters): Promise<GetProductsResponse> => {
+export const getProductsByCategory = async ({ category }: Parameters): Promise<ProductItem[]> => {
   try {
-    const response = await pool.query(
+    const { rows } = await pool.query(
       `
     SELECT
       p.id,
@@ -44,17 +32,11 @@ export const getProductsByCategory = async ({ category }: Parameters): Promise<G
       [category]
     );
 
-    return {
-      ok: true,
-      products: response.rows,
-    };
+    return rows;
   } catch (error) {
     console.error(error);
     const err = error as Error;
 
-    return {
-      ok: false,
-      message: err.message,
-    };
+    throw new Error(err.message);
   }
 };

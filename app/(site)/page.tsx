@@ -10,7 +10,7 @@ import ProductsContainer from "@/components/products/ProductsContainer";
 import { getProducts } from "@/actions/products/get-products";
 
 export default async function Home() {
-  const res = await getProducts();
+  const products = await getProducts();
 
   return (
     <div>
@@ -42,11 +42,7 @@ export default async function Home() {
       </h1>
 
       <main className="mt-5">
-        {!res.ok && <p className="text-center">{res.message}</p>}
-
-        {res.ok && res.products.length === 0 && <p className="text-center">No hay productos disponibles</p>}
-
-        {res.ok && res.products && <ProductsContainer products={res.products} />}
+        <ProductsContainer products={products} />
       </main>
 
       <div className="flex flex-col items-center mt-12">

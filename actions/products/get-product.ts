@@ -3,31 +3,20 @@
 import { pool } from "@/lib/db";
 import { Product } from "@/types";
 
-interface GetProductSuccess {
-  ok: true;
-  product: Product;
-}
-
-interface GetProductError {
-  ok: false;
-  message: string;
-}
-
-type GetProductResponse = GetProductSuccess | GetProductError;
-
 interface Parameters {
   slug: string;
 }
 
-export const getProduct = async ({ slug }: Parameters): Promise<GetProductResponse> => {
+export const getProduct = async ({ slug }: Parameters): Promise<Product> => {
   try {
-    const response = await pool.query(
+    const { rows } = await pool.query(
       `
       SELECT
         p.id,
         p.title,
         p.price,
         p.slug,
+        p.category,
 
         -- imágenes del producto
         (
@@ -54,16 +43,10 @@ export const getProduct = async ({ slug }: Parameters): Promise<GetProductRespon
       [slug]
     );
 
-    return {
-      ok: true,
-      product: response.rows[0],
-    };
+    return rows[0]
   } catch (error) {
     console.error(error);
 
-    return {
-      ok: false,
-      message: "Error al obtener el producto",
-    };
+    throw new Error("Error al obtener el producto");
   }
 };

@@ -1,17 +1,22 @@
 "use client";
 
+import { generateOrder } from "@/actions/orders/generate-order";
 import { useCartStore } from "@/store/cart-store";
 import { useCheckout } from "@/store/checkout-store";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function CheckoutPage() {
   const stored = useCheckout((state) => state);
 
   const items = useCartStore((state) => state.items);
   const getTotal = useCartStore((state) => state.getTotal);
+
+  const [loader, setLoader] = useState(false);
+
+  const SHIPPING_COST = 7800; // <- Variable constante para simular costo de envio
 
   useEffect(() => {
     if (stored && !stored.address) {
@@ -20,8 +25,30 @@ export default function CheckoutPage() {
   }, [stored, items]);
 
   if (items.length === 0) {
-    return <p>No tienes nada en tu carrito</p>
+    return <p>No tienes nada en tu carrito</p>;
   }
+
+  const onGenerateOrder = async () => {
+    setLoader(true);
+
+    const orderId = await generateOrder({
+      subtotal: getTotal(),
+      shipping_cost: SHIPPING_COST,
+      total: getTotal() + SHIPPING_COST,
+      fullname: stored.fullname,
+      address: stored.address,
+      address2: stored.address2,
+      postalCode: stored.postalCode,
+      city: stored.city,
+      phone: stored.phone,
+      country: stored.country,
+      items,
+    });
+
+    setLoader(false);
+
+    redirect(`/orders/${orderId}`);
+  };
 
   return (
     <div className="p-3">
@@ -88,14 +115,19 @@ export default function CheckoutPage() {
 
           <div>
             <p>
-              <b className="font-bold">Total:</b> ${getTotal()}
+              <b className="font-bold">Subtotal:</b> ${getTotal()}
             </p>
             <p>
               <b className="font-bold">Envío:</b> $7800
             </p>
+            <p>
+              <b className="font-bold">Total:</b> ${getTotal() + 7800}
+            </p>
           </div>
 
-          <button className="btn btn-primary">Continuar compra</button>
+          <button disabled={loader} className="btn btn-primary" onClick={onGenerateOrder}>
+            Continuar compra
+          </button>
         </div>
       </div>
     </div>

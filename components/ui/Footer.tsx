@@ -1,7 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
-
 import { BsInstagram, BsTwitter, BsWhatsapp } from "react-icons/bs";
+
+import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -19,12 +19,6 @@ const Footer = () => {
             <Link href="/" className="text-base leading-6">
               {" "}
               INICIO
-            </Link>
-          </div>
-          <div className="py-2">
-            <Link href="/allProducts" className="text-base leading-6">
-              {" "}
-              PRODUCTOS{" "}
             </Link>
           </div>
           <div className="py-2">
