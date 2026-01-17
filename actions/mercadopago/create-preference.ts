@@ -45,9 +45,9 @@ export const createPreference = async ({
       body: {
         items: products,
         back_urls: {
-          success: "https://www.mercadolibre.com.ar/",
-          failure: "https://support.google.com/webmasters/answer/2445990?hl=es",
-          pending: "https://translate.google.com/?sl=en&tl=es&op=translate",
+          success: process.env.DOMAIN_URL ? `${process.env.DOMAIN_URL}/orders/${orderId}` : "https://www.mercadolibre.com.ar/",
+          failure: process.env.DOMAIN_URL ? `${process.env.DOMAIN_URL}/orders/${orderId}` : "https://support.google.com/webmasters/answer/2445990?hl=es",
+          pending: process.env.DOMAIN_URL ? `${process.env.DOMAIN_URL}/orders/${orderId}` : "https://translate.google.com/?sl=en&tl=es&op=translate",
         },
         auto_return: "approved",
         metadata: {
