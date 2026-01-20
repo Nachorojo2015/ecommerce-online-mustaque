@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import LoginForm from "@/components/auth/LoginForm";
 import LoginGoogleButton from "@/components/auth/LoginGoogleButton";
-import LoginFacebookButton from "@/components/auth/LoginFacebookButton";
 
 export default function LoginPage() {
   return (
@@ -19,8 +18,6 @@ export default function LoginPage() {
       <h1>Iniciar sesión</h1>
 
       <LoginGoogleButton />
-
-      <LoginFacebookButton />
 
       <LoginForm />
 

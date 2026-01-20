@@ -1,4 +1,3 @@
-import LoginFacebookButton from "@/components/auth/LoginFacebookButton";
 import LoginGoogleButton from "@/components/auth/LoginGoogleButton";
 import RegisterForm from "@/components/auth/RegisterForm";
 
@@ -19,8 +18,6 @@ export default function RegisterPage() {
       <h1>Registro</h1>
 
       <LoginGoogleButton />
-
-      <LoginFacebookButton />
 
       <RegisterForm />
 
