@@ -16,7 +16,7 @@ export default function CheckoutPage() {
 
   const [loader, setLoader] = useState(false);
 
-  const SHIPPING_COST = 7800; // <- Variable constante para simular costo de envio
+  const SHIPPING_COST = 1; // <- Variable constante para simular costo de envio
 
   useEffect(() => {
     if (stored && !stored.address) {
@@ -118,7 +118,7 @@ export default function CheckoutPage() {
               <b className="font-bold">Subtotal:</b> ${getTotal()}
             </p>
             <p>
-              <b className="font-bold">Envío:</b> $7800
+              <b className="font-bold">Envío:</b> $1.00
             </p>
             <p>
               <b className="font-bold">Total:</b> ${getTotal() + 7800}

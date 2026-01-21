@@ -24,7 +24,7 @@ export const createPreference = async ({
 }: Parameters): Promise<string | null> => {
   const preference = new Preference(client);
 
-  const SHIPPING_COST = 7800;
+  const SHIPPING_COST = 1;
 
   const products = items.map((item, index) => ({
     id: item.id,
