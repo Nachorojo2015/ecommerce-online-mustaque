@@ -5,7 +5,7 @@ import { usePreference } from "@/hooks/use-preference";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { usePathname } from "next/navigation";
 
-initMercadoPago(process.env.NEXT_PUBLIC_TEST_PUBLIC_KEY ?? "");
+initMercadoPago(process.env.NEXT_PUBLIC_MP_PUBLIC_KEY ?? "");
 
 export default function OrderPage() {
   const id: string = usePathname().split("/")[2];
