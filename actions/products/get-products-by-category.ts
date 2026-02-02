@@ -12,11 +12,20 @@ interface Parameters {
     | "conjuntos"
     | "gorros"
     | "medias";
+
+  page: number;
+  pageSize: number;
 }
 
-export const getProductsByCategory = async ({ category }: Parameters): Promise<ProductItem[]> => {
+export const getProductsByCategory = async ({
+  category,
+  page = 1,
+  pageSize = 8,
+}: Parameters): Promise<{ products: ProductItem[]; total: number }> => {
   try {
-    const { rows } = await pool.query(
+    const offset = (page - 1) * pageSize;
+
+    const productsQuery = await pool.query<ProductItem>(
       `
     SELECT
       p.id,
@@ -27,12 +36,27 @@ export const getProductsByCategory = async ({ category }: Parameters): Promise<P
     FROM products p
     JOIN product_images pi ON pi.product_id = p.id
     GROUP BY p.id, p.title, p.price
-    HAVING p.category = $1;
+    HAVING p.category = $1
+    LIMIT $2 OFFSET $3;
     `,
-      [category]
+      [category, pageSize, offset],
     );
 
-    return rows;
+    const countQuery = pool.query<{ count: string }>(
+      `SELECT COUNT(*) FROM products
+      WHERE category = $1`,
+      [category],
+    );
+
+    const [{ rows: products }, { rows: countRows }] = await Promise.all([
+      productsQuery,
+      countQuery,
+    ]);
+
+    return {
+      products,
+      total: Number(countRows[0].count),
+    };
   } catch (error) {
     console.error(error);
     const err = error as Error;

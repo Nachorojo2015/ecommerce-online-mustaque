@@ -9,8 +9,15 @@ import ProductsContainer from "@/components/products/ProductsContainer";
 
 import { getProducts } from "@/actions/products/get-products";
 
-export default async function Home() {
-  const products = await getProducts();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+
+  const { products, total } = await getProducts(page, 8);
 
   return (
     <div>
@@ -42,7 +49,12 @@ export default async function Home() {
       </h1>
 
       <main className="mt-5">
-        <ProductsContainer products={products} />
+        <ProductsContainer
+          products={products}
+          page={page}
+          total={total}
+          pageSize={8}
+        />
       </main>
 
       <div className="flex flex-col items-center mt-12">
