@@ -7,13 +7,13 @@ import { useState } from "react";
 const AddProduct = ({ product }: { product: Product }) => {
   const addItem = useCartStore((state) => state.addItem);
 
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState<string>("");
   const [sizeErrorMessage, setSizeErrorMessage] = useState<string | null>(null);
 
   const [quantity, setQuantity] = useState(1);
 
   const addToCart = () => {
-    if (!size && product.category !== 'medias' && product.category !== "gorros") {
+    if (size.length === 0 && product.sizes) {
       setSizeErrorMessage("Debe seleccionar un talle");
       return;
     }
