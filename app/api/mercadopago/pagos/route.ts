@@ -61,7 +61,7 @@ export async function POST(req: Request) {
     console.log(data);
 
     console.log("metadata:", data.metadata);
-    console.log("orderId:", data.metadata?.orderId);
+    console.log("orderId:", data.metadata?.order_id);
 
     if (data.status === "approved") {
       await pool.query(
@@ -70,7 +70,7 @@ export async function POST(req: Request) {
        SET status = 'paid', payment_status = 'paid'
        WHERE id = $1
       `,
-        [data.metadata.orderId],
+        [data.metadata.order_id],
       );
 
       console.log("Pago confirmado.");
