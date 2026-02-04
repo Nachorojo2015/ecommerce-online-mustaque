@@ -24,21 +24,12 @@ export const createPreference = async ({
 }: Parameters): Promise<string | null> => {
   const preference = new Preference(client);
 
-  const SHIPPING_COST = 1;
-
   const products = items.map((item, index) => ({
     id: item.id,
     title: `Producto ${index + 1}`,
     quantity: item.quantity,
     unit_price: item.unit_price,
   }));
-
-  products.push({
-    id: "Envio",
-    title: "Costo de envio",
-    quantity: 1,
-    unit_price: SHIPPING_COST,
-  });
 
   try {
     const response = await preference.create({

@@ -2,6 +2,7 @@
 
 import { useOrder } from "@/hooks/use-order";
 import { usePreference } from "@/hooks/use-preference";
+import { currencyFormat } from "@/utils/currency-format";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { usePathname } from "next/navigation";
 
@@ -27,9 +28,9 @@ export default function OrderPage() {
       <div>
         <h2 className="text-3xl">Datos</h2>
         <p>Estado de orden: {order.payment_status}</p>
-        <p>Subtotal: ${order.subtotal}</p>
-        <p>Costo de envío: ${order.shipping_cost}</p>
-        <p>Total: ${order.total}</p>
+        <p>Subtotal: {currencyFormat(order.subtotal)}</p>
+        <p>Costo de envío: {currencyFormat(order.shipping_cost)}</p>
+        <p>Total: {currencyFormat(order.total)}</p>
 
         <div className="divider"></div>
 
@@ -49,8 +50,8 @@ export default function OrderPage() {
               <p className="font-bold">Producto {index + 1}</p>
               <p>Cantidad: {item.quantity}</p>
               <p>Talle: {item.size}</p>
-              <p>Precio único: ${item.unit_price}</p>
-              <p>Precio total: ${item.total_price}</p>
+              <p>Precio único: {currencyFormat(item.unit_price)}</p>
+              <p>Precio total: {currencyFormat(item.total_price)}</p>
             </div>
           </div>
         ))}

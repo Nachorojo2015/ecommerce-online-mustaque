@@ -1,4 +1,5 @@
 import { ProductItem } from "@/types";
+import { currencyFormat } from "@/utils/currency-format";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +18,7 @@ const ProductCard = ({ product }: { product: ProductItem }) => {
 
       <div className="flex flex-col items-center p-2">
         <p className="font-bold">{product.title}</p>
-        <p>${product.price}</p>
+        <p>{currencyFormat(product.price)}</p>
 
         <Link
           href={`/product/${product.slug}`}

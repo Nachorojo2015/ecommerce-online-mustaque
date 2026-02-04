@@ -46,10 +46,10 @@ export async function POST(req: Request) {
 
   if (sha !== hash) {
     console.log("HMAC verification failed");
-    throw new Error("Notificación inválida");
+    return new Response("Invalid signature", { status: 401 });
   }
 
-  console.log("HMAC verification pass")
+  console.log("HMAC verification pass");
   console.log("Notificación válida");
 
   try {
@@ -60,12 +60,18 @@ export async function POST(req: Request) {
 
     console.log(data);
 
+    console.log("metadata:", data.metadata);
+    console.log("orderId:", data.metadata?.orderId);
+
     if (data.status === "approved") {
-       await pool.query(`
+      await pool.query(
+        `
        UPDATE orders
        SET status = 'paid', payment_status = 'paid'
        WHERE id = $1
-      `, [data.metadata.orderId]);
+      `,
+        [data.metadata.orderId],
+      );
 
       console.log("Pago confirmado.");
     }

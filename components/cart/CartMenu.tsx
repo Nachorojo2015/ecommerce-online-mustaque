@@ -5,10 +5,13 @@ import { CiShoppingCart } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
 import CartProductsContainer from "./CartProductsContainer";
 import { useRouter } from "next/navigation";
+import { currencyFormat } from "@/utils/currency-format";
 
 const CartMenu = () => {
   const { items } = useCartStore();
   const getTotal = useCartStore((state) => state.getTotal);
+
+  const total = getTotal();
 
   const router = useRouter();
 
@@ -56,16 +59,9 @@ const CartMenu = () => {
 
           <div className="mt-auto flex flex-col gap-2">
             {items.length > 0 && (
-              <div className="flex items-center justify-between">
-                <p className="font-semibold">Envío</p>
-                <p>El costo se calculará más adelante</p>
-              </div>
-            )}
-
-            {items.length > 0 && (
               <div className="flex items-center justify-between text-xl font-bold">
                 <p>Total:</p>
-                <p>${getTotal()}</p>
+                <p>{currencyFormat(total)}</p>
               </div>
             )}
           </div>

@@ -1,5 +1,6 @@
 import { getProduct } from "@/actions/products/get-product";
 import AddProduct from "@/components/cart/AddProduct";
+import { currencyFormat } from "@/utils/currency-format";
 import Image from "next/image";
 import { SiMercadopago } from "react-icons/si";
 
@@ -34,7 +35,7 @@ export default async function ProductPage({ params }: Params) {
         <div className="flex flex-col sm:items-start items-center gap-4">
           <h1 className="text-4xl font-bold">{product.title}</h1>
 
-          <p className="text-2xl font-semibold">${product.price}</p>
+          <p className="text-2xl font-semibold">{currencyFormat(product.price)}</p>
 
           <div className="flex items-center gap-2">
             <SiMercadopago size={24} />

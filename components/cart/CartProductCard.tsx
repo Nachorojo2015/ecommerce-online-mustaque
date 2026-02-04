@@ -1,4 +1,5 @@
 import { useCartStore } from "@/store/cart-store";
+import { currencyFormat } from "@/utils/currency-format";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { CiTrash } from "react-icons/ci";
@@ -40,7 +41,7 @@ const CartProductCard = ({ id, slug, title, image, quantity, size, price }: Prop
           <span>{quantity}</span>
           <button className="btn" onClick={() => decreaseQuantity(id, size)}>-</button>
         </div>
-        <p className="font-semibold">${price}</p>
+        <p className="font-semibold">{currencyFormat(price)}</p>
       </div>
 
       <CiTrash size={24} className="ml-auto cursor-pointer" onClick={() => removeItem(id, size)} />

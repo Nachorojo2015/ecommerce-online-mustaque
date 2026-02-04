@@ -3,6 +3,7 @@
 import { generateOrder } from "@/actions/orders/generate-order";
 import { useCartStore } from "@/store/cart-store";
 import { useCheckout } from "@/store/checkout-store";
+import { currencyFormat } from "@/utils/currency-format";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -14,9 +15,9 @@ export default function CheckoutPage() {
   const items = useCartStore((state) => state.items);
   const getTotal = useCartStore((state) => state.getTotal);
 
-  const [loader, setLoader] = useState(false);
+  const total = getTotal();
 
-  const SHIPPING_COST = 1; // <- Variable constante para simular costo de envio
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     if (stored && !stored.address) {
@@ -33,8 +34,8 @@ export default function CheckoutPage() {
 
     const orderId = await generateOrder({
       subtotal: getTotal(),
-      shipping_cost: SHIPPING_COST,
-      total: getTotal() + SHIPPING_COST,
+      shipping_cost: 1,
+      total: getTotal()  + 1,
       fullname: stored.fullname,
       address: stored.address,
       address2: stored.address2,
@@ -107,7 +108,7 @@ export default function CheckoutPage() {
                   <b className="font-bold">Talle:</b> {item.size}
                 </p>
                 <p>
-                  <b className="font-bold">Precio:</b> ${item.price}
+                  <b className="font-bold">Precio:</b> {currencyFormat(item.price)}
                 </p>
               </div>
             </div>
@@ -115,13 +116,7 @@ export default function CheckoutPage() {
 
           <div>
             <p>
-              <b className="font-bold">Subtotal:</b> ${getTotal()}
-            </p>
-            <p>
-              <b className="font-bold">Envío:</b> $1.00
-            </p>
-            <p>
-              <b className="font-bold">Total:</b> ${getTotal() + 7800}
+              <b className="font-bold">Total:</b> {currencyFormat(total)}
             </p>
           </div>
 
