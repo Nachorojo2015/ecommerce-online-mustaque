@@ -1,7 +1,7 @@
 import { getProduct } from "@/actions/products/get-product";
 import AddProduct from "@/components/cart/AddProduct";
+import ProductImages from "@/components/products/ProductImages";
 import { currencyFormat } from "@/utils/currency-format";
-import Image from "next/image";
 import { SiMercadopago } from "react-icons/si";
 
 interface Params {
@@ -22,16 +22,7 @@ export default async function ProductPage({ params }: Params) {
   return (
     <div>
       <main className="grid grid-cols-1 sm:grid-cols-2 place-content-center gap-5 mt-5">
-        <div>
-          <div className="relative min-h-80 sm:min-h-125 w-auto">
-            <Image
-              src={product.images[0]}
-              alt="product-image"
-              fill
-              className="object-cover rounded-sm"
-            />
-          </div>
-        </div>
+        <ProductImages images={product.images} />
         <div className="flex flex-col sm:items-start items-center gap-4">
           <h1 className="text-4xl font-bold">{product.title}</h1>
 

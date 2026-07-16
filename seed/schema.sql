@@ -17,6 +17,7 @@ CREATE TABLE products (
 CREATE TABLE product_images (
   id TEXT NOT NULL PRIMARY KEY,
   product_id TEXT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  public_id TEXT NOT NULL,
   url_image TEXT NOT NULL
 );
 

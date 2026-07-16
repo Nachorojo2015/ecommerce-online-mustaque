@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function AuthLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -11,9 +11,7 @@ export default async function AuthLayout({
     headers: await headers(),
   });
 
-  if (session) {
-    redirect("/");
-  }
+  if (session?.user.role !== 'admin') redirect('/iniciar-sesion');
 
   return <div>{children}</div>;
 }
