@@ -1,7 +1,5 @@
-import { CiCreditCard1, CiDeliveryTruck, CiInstagram } from "react-icons/ci";
+import { CiCreditCard1, CiDeliveryTruck } from "react-icons/ci";
 import { RiSecurePaymentLine } from "react-icons/ri";
-
-import Link from "next/link";
 
 import SliderDesktop from "@/components/ui/SliderDesktop";
 import SliderMobile from "@/components/ui/SliderMobile";
@@ -44,25 +42,6 @@ export default async function Home() {
       <main className="mt-5">
         <ProductsSlider products={products} />
       </main>
-
-      <div className="flex flex-col items-center mt-12">
-        <div className="flex items-center gap-3">
-          <CiInstagram size={50} />
-          <p className="text-2xl">Mustaque.arg</p>
-        </div>
-        <Link
-          href={"https://www.instagram.com/mustaqe.arg/?hl=es"}
-          target="__BLANCK"
-          className="link bg-black px-12 py-2 rounded-full text-white mt-2"
-        >
-          Seguinos
-        </Link>
-      </div>
-
-      <div className="text-center mt-12">
-        <p className="text-3xl">Mustaqe Indumentaria S.A.</p>
-        <p>Todos los derechos reservados.</p>
-      </div>
     </div>
   );
 }
