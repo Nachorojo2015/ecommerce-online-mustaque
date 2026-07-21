@@ -141,50 +141,6 @@ const SidebarMenu = () => {
               </ul>
             </details>
           </li>
-          <li>
-            <label
-              htmlFor="my-drawer-1"
-              className={clsx({
-                "font-bold": pathname === "/stores",
-              })}
-              onClick={() => router.push("/stores")}
-            >
-              Stores
-            </label>
-          </li>
-          <li>
-            <label
-              htmlFor="my-drawer-1"
-              onClick={() => router.push("/como-comprar")}
-              className={clsx({
-                "font-bold": pathname === "/como-comprar",
-              })}
-            >
-              Cómo comprar
-            </label>
-          </li>
-          <li>
-            <label
-              htmlFor="my-drawer-1"
-              onClick={() => router.push("/preguntas-frecuentes")}
-              className={clsx({
-                "font-bold": pathname === "/preguntas-frecuentes",
-              })}
-            >
-              Preguntas frecuentes
-            </label>
-          </li>
-          <li>
-            <label
-              htmlFor="my-drawer-1"
-              onClick={() => router.push("/politica-de-cambios")}
-              className={clsx({
-                "font-bold": pathname === "/politica-de-cambios",
-              })}
-            >
-              Política de cambios
-            </label>
-          </li>
           {session && (
             <li>
               <label

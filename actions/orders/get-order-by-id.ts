@@ -31,6 +31,7 @@ export const getOrderById = async ({ id }: Parameters): Promise<Order> => {
 
       json_build_object(
         'fullname', oa.fullname,
+        'email', oa.email,
         'address', oa.address,
         'address2', oa.address2,
         'postal_code', oa.postal_code,
@@ -60,12 +61,13 @@ export const getOrderById = async ({ id }: Parameters): Promise<Order> => {
     GROUP BY
       o.id,
       oa.fullname,
+      oa.email,
       oa.address,
       oa.address2,
       oa.postal_code,
       oa.city,
       oa.phone,
-      oa.country;    
+      oa.country;
     `,
       [id, session.user.id]
     );

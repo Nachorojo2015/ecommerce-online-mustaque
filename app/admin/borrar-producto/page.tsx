@@ -2,12 +2,15 @@ import Image from "next/image";
 import { getProducts } from "@/actions/products/get-products";
 import { currencyFormat } from "@/utils/currency-format";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
+import Logo from "@/components/ui/Logo";
 
 export default async function BorrarProductoPage() {
   const products = await getProducts();
 
   return (
     <div className="p-6">
+      <Logo />
+
       <h1 className="text-3xl font-bold mb-8">Borrar producto</h1>
 
       {products.length === 0 ? (

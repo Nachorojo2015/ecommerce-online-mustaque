@@ -54,18 +54,6 @@ const Footer = () => {
         <p className="mt-8 text-base leading-6 text-center">
           © 2023 Mustaque, Inc. All rights reserved.
         </p>
-        <p className="mt-8 text-base leading-6 text-center text-[11px]">
-          Defensa de las y los consumidores. Para reclamos{" "}
-          <span className="font-bold">
-            <Link href="https://autogestion.produccion.gob.ar/consumidores">
-              ingresá acá.
-            </Link>
-          </span>{" "}
-          /{" "}
-          <span className="font-bold">
-            <Link href="/contacto">Botón de arrepentimiento</Link>
-          </span>
-        </p>
       </div>
     </footer>
   );

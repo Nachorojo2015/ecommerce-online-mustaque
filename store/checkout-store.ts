@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 
 interface CheckoutStore {
   fullname: string;
+  email: string;
   address: string;
   address2?: string;
   postalCode: string;
@@ -17,6 +18,7 @@ export const useCheckout = create<CheckoutStore>()(
   persist(
     (set) => ({
       fullname: "",
+      email: "",
       address: "",
       address2: "",
       postalCode: "",

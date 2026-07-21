@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CiCirclePlus, CiTrash } from "react-icons/ci";
+import Logo from "@/components/ui/Logo";
 
 const adminOptions = [
   {
@@ -19,6 +20,8 @@ const adminOptions = [
 export default async function AdminPage() {
   return (
     <div className="p-6">
+      <Logo />
+
       <h1 className="text-3xl font-bold mb-8">Panel de administrador</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl">

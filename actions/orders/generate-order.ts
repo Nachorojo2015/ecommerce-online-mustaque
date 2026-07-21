@@ -11,6 +11,7 @@ interface Parameters {
   shipping_cost: number;
   total: number;
   fullname: string;
+  email: string;
   address: string;
   address2?: string;
   postalCode: string;
@@ -20,7 +21,7 @@ interface Parameters {
   items: CartItem[];
 }
 
-export const generateOrder = async ({ subtotal, shipping_cost, total, fullname, address, address2, postalCode, city, phone, country, items }: Parameters): Promise<string> => {
+export const generateOrder = async ({ subtotal, shipping_cost, total, fullname, email, address, address2, postalCode, city, phone, country, items }: Parameters): Promise<string> => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -40,8 +41,8 @@ export const generateOrder = async ({ subtotal, shipping_cost, total, fullname, 
     await client.query(`INSERT INTO orders (id, user_id, subtotal, shipping_cost, total)
                         VALUES ($1, $2, $3, $4, $5)`, [orderId, session.user.id, subtotal, shipping_cost, total]);
 
-    await client.query(`INSERT INTO order_address (id, order_id, fullname, address, address2, postal_code, city, phone, country)
-                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`, [orderAddressId, orderId, fullname, address, address2, postalCode, city, phone, country]);
+    await client.query(`INSERT INTO order_address (id, order_id, fullname, email, address, address2, postal_code, city, phone, country)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, [orderAddressId, orderId, fullname, email, address, address2, postalCode, city, phone, country]);
     
     items.forEach(async (product) => {
         const orderItemsId = uuidv4();

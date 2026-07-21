@@ -3,6 +3,7 @@
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { createProduct } from "@/actions/admin/create-product";
+import Logo from "@/components/ui/Logo";
 
 const CATEGORIES = [
   "buzos",
@@ -68,6 +69,8 @@ export default function CrearProductoPage() {
 
   return (
     <div className="p-6">
+      <Logo />
+
       <h1 className="text-3xl font-bold mb-8">Crear producto</h1>
 
       <form

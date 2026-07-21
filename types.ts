@@ -30,6 +30,7 @@ export interface Order {
   payment_status: number;
   address: {
     fullname: string;
+    email: string;
     address: string;
     address2?: string;
     postal_code: string;
