@@ -68,13 +68,13 @@ export default function CrearProductoPage() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 flex flex-col items-center">
       <Logo />
 
       <h1 className="text-3xl font-bold mb-8">Crear producto</h1>
 
       <form
-        className="flex flex-col gap-6 max-w-2xl"
+        className="flex flex-col gap-6 w-full max-w-2xl"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col">

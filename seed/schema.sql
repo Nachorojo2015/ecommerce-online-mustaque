@@ -39,7 +39,6 @@ CREATE TABLE product_sizes (
 
 CREATE TABLE orders (
   id TEXT NOT NULL PRIMARY KEY,
-  user_id TEXT NOT NULL REFERENCES "user"(id),
   status TEXT NOT NULL DEFAULT 'pending' CHECK (
     status IN ('pending', 'paid', 'cancelled')
   ),

@@ -12,6 +12,7 @@
 - Integración con mercado pago para pagos online
 - Autenticación de usuarios
 - Diseño minimalista y moderno
+- Panel de administrador: crear productos (con imágenes, talles y stock), borrar productos y ver todas las órdenes de compra con su información completa (comprador, dirección, productos y totales)
 
 ## Herramientas utilizadas:
 

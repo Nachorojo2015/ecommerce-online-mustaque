@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CiCirclePlus, CiTrash } from "react-icons/ci";
+import { CiCirclePlus, CiReceipt, CiTrash } from "react-icons/ci";
 import Logo from "@/components/ui/Logo";
 
 const adminOptions = [
@@ -14,6 +14,12 @@ const adminOptions = [
     description: "Eliminar un producto existente del catálogo.",
     href: "/admin/borrar-producto",
     icon: CiTrash,
+  },
+  {
+    title: "Órdenes de compra",
+    description: "Ver todas las órdenes y su información completa.",
+    href: "/admin/ordenes",
+    icon: CiReceipt,
   },
 ];
 

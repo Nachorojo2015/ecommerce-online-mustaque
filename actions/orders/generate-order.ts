@@ -1,8 +1,6 @@
 "use server";
 
-import { auth } from "@/lib/auth";
 import { CartItem } from "@/store/cart-store";
-import { headers } from "next/headers";
 import { pool } from "@/lib/db";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -22,14 +20,6 @@ interface Parameters {
 }
 
 export const generateOrder = async ({ subtotal, shipping_cost, total, fullname, email, address, address2, postalCode, city, phone, country, items }: Parameters): Promise<string> => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) {
-    throw new Error("No autorizado");
-  }
-
   const client = await pool!.connect()
 
   const orderId = uuidv4();
@@ -38,8 +28,8 @@ export const generateOrder = async ({ subtotal, shipping_cost, total, fullname, 
   try {
     await client.query("BEGIN");
 
-    await client.query(`INSERT INTO orders (id, user_id, subtotal, shipping_cost, total)
-                        VALUES ($1, $2, $3, $4, $5)`, [orderId, session.user.id, subtotal, shipping_cost, total]);
+    await client.query(`INSERT INTO orders (id, subtotal, shipping_cost, total)
+                        VALUES ($1, $2, $3, $4)`, [orderId, subtotal, shipping_cost, total]);
 
     await client.query(`INSERT INTO order_address (id, order_id, fullname, email, address, address2, postal_code, city, phone, country)
                         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, [orderAddressId, orderId, fullname, email, address, address2, postalCode, city, phone, country]);

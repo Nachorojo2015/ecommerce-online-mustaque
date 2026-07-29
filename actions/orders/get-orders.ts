@@ -3,13 +3,9 @@
 import { pool } from "@/lib/db";
 import { Order } from "@/types";
 
-interface Parameters {
-  id: string;
-}
-
-export const getOrderById = async ({ id }: Parameters): Promise<Order> => {
+export const getOrders = async (): Promise<Order[]> => {
   try {
-    const { rowCount, rows } = await pool.query(
+    const { rows } = await pool.query<Order>(
       `
     SELECT
       o.id,
@@ -48,8 +44,6 @@ export const getOrderById = async ({ id }: Parameters): Promise<Order> => {
     JOIN order_items oi ON oi.order_id = o.id
     LEFT JOIN products p ON p.id = oi.product_id
 
-    WHERE o.id = $1
-
     GROUP BY
       o.id,
       oa.fullname,
@@ -59,19 +53,16 @@ export const getOrderById = async ({ id }: Parameters): Promise<Order> => {
       oa.postal_code,
       oa.city,
       oa.phone,
-      oa.country;
-    `,
-      [id]
+      oa.country
+
+    ORDER BY o.created_at DESC;
+    `
     );
 
-    if (rowCount === 0) {
-      throw new Error("No se encontro la orden");
-    }
-
-    return rows[0];
+    return rows;
   } catch (error) {
     console.error(error);
 
-    throw new Error("Error al obtener la orden");
+    throw new Error("Error al obtener las órdenes");
   }
 };

@@ -27,7 +27,8 @@ export interface Order {
   subtotal: number;
   shipping_cost: number;
   total: number;
-  payment_status: number;
+  payment_status: 'pending' | 'paid' | 'failed';
+  created_at: string;
   address: {
     fullname: string;
     email: string;
@@ -42,6 +43,7 @@ export interface Order {
     {
       id: string;
       product_id: string;
+      product_title: string;
       size: Size["size"];
       quantity: number;
       unit_price: number;
