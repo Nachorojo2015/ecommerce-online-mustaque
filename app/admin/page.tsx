@@ -30,7 +30,7 @@ export default async function AdminPage() {
 
       <h1 className="text-3xl font-bold mb-8">Panel de administrador</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {adminOptions.map(({ title, description, href, icon: Icon }) => (
           <Link
             key={href}

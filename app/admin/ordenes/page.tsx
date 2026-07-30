@@ -1,6 +1,7 @@
 import { getOrders } from "@/actions/orders/get-orders";
 import { currencyFormat } from "@/utils/currency-format";
 import Logo from "@/components/ui/Logo";
+import DeleteOrderButton from "@/components/admin/DeleteOrderButton";
 
 const STATUS_BADGE: Record<string, string> = {
   pending: "badge-warning",
@@ -114,6 +115,10 @@ export default async function OrdenesPage() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+
+                <div className="flex justify-end mt-4">
+                  <DeleteOrderButton orderId={order.id} />
                 </div>
               </div>
             </div>

@@ -27,7 +27,7 @@ const LoginForm = () => {
       return;
     }
 
-    window.location.replace("/");
+    window.location.replace("/admin");
   };
 
   return (
