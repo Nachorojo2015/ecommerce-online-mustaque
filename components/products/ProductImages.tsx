@@ -75,12 +75,12 @@ const ProductImages = ({ images }: Props) => {
           slidesPerView={4}
           spaceBetween={8}
           modules={[Thumbs]}
-          className="h-20 w-full"
+          className="h-28 w-full"
         >
           {images.map((image, index) => (
             <SwiperSlide
               key={image}
-              className="relative h-20 rounded-sm overflow-hidden cursor-pointer"
+              className="relative h-28 rounded-sm overflow-hidden cursor-pointer"
             >
               <Image
                 src={image}

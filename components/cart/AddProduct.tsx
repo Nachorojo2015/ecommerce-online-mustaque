@@ -39,45 +39,54 @@ const AddProduct = ({ product }: { product: Product }) => {
   };
 
   return (
-    <>
-      {sizeErrorMessage && <p className="text-red-500">{sizeErrorMessage}</p>}
-
+    <div className="flex w-full flex-col items-center gap-4 sm:items-start">
       {product.sizes && (
-        <select defaultValue="Selecciona un talle" className="select">
-          <option disabled={true}>Selecciona un talle</option>
-          {product.sizes &&
-            product.sizes.map((size, index) => (
-              <option
-                key={index}
-                disabled={size.stock <= 0}
-                onClick={() => {
-                  setSize(size.size);
-                  setSizeErrorMessage(null);
-                }}
-              >
-                {size.size}
-              </option>
-            ))}
-        </select>
+        <div className="flex w-full flex-col gap-1 sm:w-auto">
+          <label className="text-sm font-medium">Talle</label>
+          <select defaultValue="Selecciona un talle" className="select w-full sm:w-40">
+            <option disabled={true}>Selecciona un talle</option>
+            {product.sizes &&
+              product.sizes.map((size, index) => (
+                <option
+                  key={index}
+                  disabled={size.stock <= 0}
+                  onClick={() => {
+                    setSize(size.size);
+                    setSizeErrorMessage(null);
+                  }}
+                >
+                  {size.size}
+                </option>
+              ))}
+          </select>
+          {sizeErrorMessage && (
+            <p className="text-sm text-error">{sizeErrorMessage}</p>
+          )}
+        </div>
       )}
 
-      <div>
-        <p>Cantidad</p>
-        <div className="flex items-center gap-2">
-          <button className="btn" onClick={sum}>
-            +
-          </button>
-          <span>{quantity}</span>
-          <button className="btn" onClick={res}>
+      <div className="flex flex-col gap-1">
+        <p className="text-sm font-medium">Cantidad</p>
+        <div className="join">
+          <button className="btn join-item" onClick={res}>
             -
+          </button>
+          <span className="btn join-item pointer-events-none w-12">
+            {quantity}
+          </span>
+          <button className="btn join-item" onClick={sum}>
+            +
           </button>
         </div>
       </div>
 
-      <button className="btn btn-neutral sm:w-fit w-full" onClick={addToCart}>
+      <button
+        className="btn btn-neutral w-full sm:w-fit sm:min-w-52"
+        onClick={addToCart}
+      >
         Agregar al carrito
       </button>
-    </>
+    </div>
   );
 };
 
