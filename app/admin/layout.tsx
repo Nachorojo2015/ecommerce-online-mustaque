@@ -11,7 +11,7 @@ export default async function AdminLayout({
     headers: await headers(),
   });
 
-  if (session?.user.role !== 'admin') redirect('/iniciar-sesion');
+  if (session?.user.role !== 'admin') redirect('/');
 
   return <div>{children}</div>;
 }
