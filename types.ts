@@ -21,6 +21,16 @@ export interface Size {
   stock: number;
 }
 
+export interface OrderItem {
+  id: string;
+  product_id: string;
+  product_title: string;
+  size: Size["size"];
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+}
+
 export interface Order {
   id: string;
   status: 'pending' | 'paid' | 'cancelled';
@@ -28,6 +38,7 @@ export interface Order {
   shipping_cost: number;
   total: number;
   payment_status: 'pending' | 'paid' | 'failed';
+  preference_id: string | null;
   created_at: string;
   address: {
     fullname: string;
@@ -39,17 +50,7 @@ export interface Order {
     phone: string;
     country: string;
   };
-  items: [
-    {
-      id: string;
-      product_id: string;
-      product_title: string;
-      size: Size["size"];
-      quantity: number;
-      unit_price: number;
-      total_price: number
-    }
-  ];
+  items: OrderItem[];
 }
 
 type Category = 'buzos' | 'remerones' |'pantalones' | 'shorts' | 'conjuntos' | 'gorros' | 'medias';

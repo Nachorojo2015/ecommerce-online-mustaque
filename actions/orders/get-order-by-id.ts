@@ -18,6 +18,7 @@ export const getOrderById = async ({ id }: Parameters): Promise<Order> => {
       o.shipping_cost,
       o.total,
       o.payment_status,
+      o.preference_id,
       o.created_at,
 
       json_build_object(

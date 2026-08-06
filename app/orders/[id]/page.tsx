@@ -1,14 +1,8 @@
-"use client";
-
-import { useOrder } from "@/hooks/use-order";
-import { usePreference } from "@/hooks/use-preference";
+import { getOrderById } from "@/actions/orders/get-order-by-id";
+import MercadoPagoPayment from "@/components/orders/MercadoPagoPayment";
 import { currencyFormat } from "@/utils/currency-format";
-import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { IoArrowBack } from "react-icons/io5";
-
-initMercadoPago(process.env.NEXT_PUBLIC_MP_PUBLIC_KEY ?? "");
 
 const PAYMENT_STATUS_STYLES: Record<string, string> = {
   paid: "badge-success",
@@ -22,24 +16,16 @@ const PAYMENT_STATUS_LABELS: Record<string, string> = {
   failed: "Fallido",
 };
 
-export default function OrderPage() {
-  const id: string = usePathname().split("/")[2];
+interface Params {
+  params: {
+    id: string;
+  };
+}
 
-  const { loader, order } = useOrder(id);
-  const { loader: loaderPreference, preferenceId } = usePreference({
-    items: order?.items,
-    orderId: order?.id
-  });
+export default async function OrderPage({ params }: Params) {
+  const { id } = await params;
 
-  if (loader) {
-    return (
-      <div className="max-w-5xl mx-auto p-4 sm:p-6 flex flex-col gap-6">
-        <div className="skeleton h-10 w-64 mx-auto"></div>
-        <div className="skeleton h-48 w-full"></div>
-        <div className="skeleton h-48 w-full"></div>
-      </div>
-    );
-  }
+  const order = await getOrderById({ id });
 
   if (!order) {
     return (
@@ -120,13 +106,13 @@ export default function OrderPage() {
               </h2>
 
               <div className="flex flex-col divide-y divide-base-300">
-                {order.items.map((item, index) => (
+                {order.items.map((item) => (
                   <div
                     className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"
                     key={item.id}
                   >
                     <div className="flex flex-col gap-0.5 text-sm">
-                      <p className="font-bold">Producto {index + 1}</p>
+                      <p className="font-bold">{item.product_title}</p>
                       <p className="text-base-content/70">
                         Talle: {item.size} · Cantidad: {item.quantity}
                       </p>
@@ -169,21 +155,7 @@ export default function OrderPage() {
             </div>
           </div>
 
-          {status !== "paid" && (
-            <div className="card bg-base-100 border border-base-300 shadow-sm">
-              <div className="card-body gap-3 items-center">
-                <h2 className="card-title text-lg">Completar pago</h2>
-
-                {loaderPreference ? (
-                  <div className="skeleton w-full h-12"></div>
-                ) : (
-                  <div className="w-full">
-                    <Wallet initialization={{ preferenceId: preferenceId ?? "" }} />
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+          {status !== "paid" && <MercadoPagoPayment order={order} />}
         </div>
       </div>
     </div>

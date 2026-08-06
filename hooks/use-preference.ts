@@ -1,26 +1,22 @@
 import { createPreference } from "@/actions/mercadopago/create-preference";
-import { Size } from "@/types";
+import { OrderItem } from "@/types";
 import { useEffect, useState } from "react"
 
 interface Parameters {
-  items?: [
-    {
-      id: string;
-      product_id: string;
-      size: Size["size"];
-      quantity: number;
-      unit_price: number;
-      total_price: number;
-    }
-  ];
+  items?: OrderItem[];
   orderId?: string;
+  existingPreferenceId?: string | null;
 }
 
-export const usePreference = ({ items, orderId }: Parameters) => {
-    const [preferenceId, setPreferenceId] = useState<string | null>();
+export const usePreference = ({ items, orderId, existingPreferenceId }: Parameters) => {
+    const [createdPreferenceId, setCreatedPreferenceId] = useState<string | null>();
     const [loader, setLoader] = useState<boolean>(false);
 
     useEffect(() => {
+      // La orden ya tiene una preferencia creada (order.preference_id): se usa
+      // directo, sin pegarle de nuevo al server action en cada visita.
+      if (existingPreferenceId) return;
+
       const getPreference = async () => {
         if (!items) return;
         if (!orderId) return;
@@ -31,12 +27,12 @@ export const usePreference = ({ items, orderId }: Parameters) => {
 
         setLoader(false);
 
-        setPreferenceId(preferenceId);
+        setCreatedPreferenceId(preferenceId);
       }
 
       getPreference();
-    }, [items, orderId]);
+    }, [items, orderId, existingPreferenceId]);
 
-    return { loader, preferenceId }
-    
+    return { loader, preferenceId: existingPreferenceId ?? createdPreferenceId }
+
 }

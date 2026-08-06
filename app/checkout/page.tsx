@@ -1,17 +1,14 @@
 "use client";
 
-import { generateOrder } from "@/actions/orders/generate-order";
+import GenerateOrderButton from "@/components/checkout/GenerateOrderButton";
+import { SHIPPING_COST } from "@/lib/constants";
 import { useCartStore } from "@/store/cart-store";
 import { useCheckout } from "@/store/checkout-store";
 import { currencyFormat } from "@/utils/currency-format";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { IoArrowBack } from "react-icons/io5";
-
-const SHIPPING_COST = 1;
 
 export default function CheckoutPage() {
   const stored = useCheckout((state) => state);
@@ -21,8 +18,6 @@ export default function CheckoutPage() {
 
   const subtotal = getTotal();
   const total = subtotal + SHIPPING_COST;
-
-  const [loader, setLoader] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -51,29 +46,6 @@ export default function CheckoutPage() {
       </div>
     );
   }
-
-  const onGenerateOrder = async () => {
-    setLoader(true);
-
-    const orderId = await generateOrder({
-      subtotal,
-      shipping_cost: SHIPPING_COST,
-      total,
-      fullname: stored.fullname,
-      email: stored.email,
-      address: stored.address,
-      address2: stored.address2,
-      postalCode: stored.postalCode,
-      city: stored.city,
-      phone: stored.phone,
-      country: stored.country,
-      items,
-    });
-
-    setLoader(false);
-
-    redirect(`/orders/${orderId}`);
-  };
 
   return (
     <div className="max-w-5xl mx-auto p-4 sm:p-6">
@@ -192,17 +164,7 @@ export default function CheckoutPage() {
                 <p>{currencyFormat(total)}</p>
               </div>
 
-              <button
-                disabled={loader}
-                className="btn btn-primary mt-2"
-                onClick={onGenerateOrder}
-              >
-                {loader ? (
-                  <span className="loading loading-spinner loading-sm"></span>
-                ) : (
-                  "Continuar compra"
-                )}
-              </button>
+              <GenerateOrderButton />
             </div>
           </div>
         </div>

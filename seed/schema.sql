@@ -48,6 +48,7 @@ CREATE TABLE orders (
   payment_status TEXT NOT NULL DEFAULT 'pending' CHECK (
     payment_status IN ('pending', 'paid', 'failed')
   ),
+  preference_id TEXT,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
